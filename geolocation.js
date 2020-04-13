@@ -2,13 +2,13 @@
 var lat, long, coordsArray;
 
 function fail(failObj) {
-  alert('Geolocation is not supported by this browser.');
-  console.log(failObj);
+  // Display gelocation error object message
+  alert(failObj.message);
 }
 
 function revealGeoInfo(infoObj) {
   var infoBox = document.getElementById('information');
-  var geoInfo;
+  var geoInfo = '';
 
   if (infoObj) {
     for (item in infoObj) {
