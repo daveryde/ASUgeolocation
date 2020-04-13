@@ -26,15 +26,14 @@ function mapTiler() {
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
+    mapTiler();
   } else {
     alert('Geolocation is not supported by this browser.');
   }
-
-  mapTiler();
 }
 
 function showPosition(position) {
-  lat = position.coords.latitude; 
+  lat = position.coords.latitude;
   long = position.coords.longitude;
 }
 
