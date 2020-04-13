@@ -11,14 +11,7 @@ function storeLocation(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
 
-  // if (!lat || !long) {
-  //   console.log('Retrying location')
-  //   geoTest();
-  // } else {
-  //   mapLocation(lat, long);
-  // }
-
-  // Assuming geolocation was successful if we got this far
+  // Assuming geolocation was successful, map coordinates
   mapLocation(lat, long);
 }
 
