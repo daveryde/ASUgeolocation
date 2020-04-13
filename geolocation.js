@@ -1,11 +1,16 @@
 var long, lat, position;
 
 function mapTiler() {
+  getLocation();
   //This array is for the lattitude and longitude of the desired display location
   //Hard coded to Paris France
   // var coordsArrayParis = [48.8566969, 2.3514616];
   // var coordsArrayLiberty = [40.689253199999996, -74.04454817144321];
-  var coordsArray = [lat, long];
+  if (long === undefined || lat === undefined) {
+    var coordsArray = [40.689253199999996, -74.04454817144321];
+  } else {
+    var coordsArray = [lat, long];
+  }
 
   //Creates the map object with the intended coordinates and sets zoom level to 14
   var map = L.map('map').setView(coordsArray, 14);
@@ -26,7 +31,6 @@ function mapTiler() {
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
-    mapTiler();
   } else {
     alert('Geolocation is not supported by this browser.');
   }
@@ -37,4 +41,4 @@ function showPosition(position) {
   long = position.coords.longitude;
 }
 
-window.addEventListener('load', getLocation, false);
+window.addEventListener('load', mapTiler, false);
