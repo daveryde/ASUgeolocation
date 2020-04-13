@@ -13,9 +13,7 @@ function createDirections(position) {
 
 function geoTest() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(createDirections, fail, {
-      timeout: 10000,
-    });
+    navigator.geolocation.getCurrentPosition(createDirections);
   } else {
     fail();
   }
