@@ -12,7 +12,7 @@ function getLocation() {
   } else {
     alert('Geolocation is not supported by this browser.');
   }
-
+}
 //   //This array is for the lattitude and longitude of the desired display location
 //   //Hard coded to Paris France
 //   // var coordsArrayParis = [48.8566969, 2.3514616];
