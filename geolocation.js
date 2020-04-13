@@ -5,10 +5,10 @@ function mapTiler() {
   //Hard coded to Paris France
   // var coordsArrayParis = [48.8566969, 2.3514616];
   // var coordsArrayLiberty = [40.689253199999996, -74.04454817144321];
-  var coordsArrayPhoenix = [33.4484367, -112.0741417];
+  var coordsArray = [lat, long];
 
   //Creates the map object with the intended coordinates and sets zoom level to 14
-  var map = L.map('map').setView(coordsArrayPhoenix, 14);
+  var map = L.map('map').setView(coordsArray, 14);
 
   //Creates the required WebGL metadata and chains it to the map object
   var gl = L.mapboxGL({
@@ -20,7 +20,7 @@ function mapTiler() {
   }).addTo(map);
 
   //Creates the marker for the intended coordinates and chains it to the map object
-  var marker = L.marker(coordsArrayPhoenix).addTo(map);
+  var marker = L.marker(coordsArray).addTo(map);
 }
 
 function getLocation() {
@@ -36,10 +36,6 @@ function getLocation() {
 function showPosition(position) {
   lat = position.coords.latitude; 
   long = position.coords.longitude;
-
-  
-
-  console.log(lat, long);
 }
 
 window.addEventListener('load', getLocation, false);
