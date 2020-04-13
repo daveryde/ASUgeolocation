@@ -1,37 +1,41 @@
 // Global variables
-var long, lat, coordsArray;
+var lat, long, coordsArray;
 
 function fail() {
   alert('Geolocation is not supported by this browser.');
 }
 
-function createDirections(position) {
+function storeLocation(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
-  coordsArray = [lat, long];
+
+  if (!lat || !long) {
+    geoTest();
+  } else {
+    mapLocation(lat, long);
+  }
 }
 
 function geoTest() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(createDirections);
+  if (navigator && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(storeLocation, fail, {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 0,
+    });
   } else {
+    // Fallback for no geolocation
     fail();
   }
 }
 
 // Grabs the location from the user and calls showPosition
-function getLocation() {
-  // Get gep location data from user
- geoTest();
-
-  //This array is for the lattitude and longitude of the desired display location
-  //Hard coded to Paris France
-  // var coordsArrayParis = [48.8566969, 2.3514616];
-  // var coordsArrayLiberty = [40.689253199999996, -74.04454817144321];
-
+function mapLocation(lat, long) {
   // If unable to get location then set hard coded lat and long
-  if (!lat || !long) {
+  if ((!lat && !long) || (lat === undefined && long === undefined)) {
     coordsArray = [40.689253199999996, -74.04454817144321];
+  } else {
+    coordsArray = [lat, long];
   }
 
   //Creates the map object with the intended coordinates and sets zoom level to 14
@@ -50,4 +54,4 @@ function getLocation() {
   var marker = L.marker(coordsArray).addTo(map);
 }
 
-window.addEventListener('load', getLocation, false);
+window.addEventListener('load', geoTest, false);
