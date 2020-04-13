@@ -1,29 +1,32 @@
 // Global variables
 var lat, long, coordsArray;
 
-function fail() {
+function fail(failObj) {
   alert('Geolocation is not supported by this browser.');
+  console.log(failObj);
 }
 
 function storeLocation(position) {
-  console.log(position);
-
+  // Store coords in global variables
   lat = position.coords.latitude;
   long = position.coords.longitude;
 
-  if (!lat || !long) {
-    console.log('Retrying location')
-    geoTest();
-  } else {
-    mapLocation(lat, long);
-  }
+  // if (!lat || !long) {
+  //   console.log('Retrying location')
+  //   geoTest();
+  // } else {
+  //   mapLocation(lat, long);
+  // }
+
+  // Assuming geolocation was successful if we got this far
+  mapLocation(lat, long);
 }
 
 // Handles geolocation permissions and operations
 function geoTest() {
   // Checks for geolocation fails otherwise get location
   if (!navigator || !navigator.geolocation) {
-    fail();
+    alert('Geolocation is not supported by this browser.');
   } else {
     navigator.geolocation.getCurrentPosition(storeLocation, fail, {
       enableHighAccuracy: true,
