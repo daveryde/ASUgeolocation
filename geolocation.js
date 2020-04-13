@@ -6,37 +6,37 @@ function fail() {
 }
 
 function storeLocation(position) {
+  console.log(position);
+
   lat = position.coords.latitude;
   long = position.coords.longitude;
 
   if (!lat || !long) {
+    console.log('Retrying location')
     geoTest();
   } else {
     mapLocation(lat, long);
   }
 }
 
+// Handles geolocation permissions and operations
 function geoTest() {
-  if (navigator && navigator.geolocation) {
+  // Checks for geolocation fails otherwise get location
+  if (navigator || !navigator.geolocation) {
+    fail();
+  } else {
     navigator.geolocation.getCurrentPosition(storeLocation, fail, {
       enableHighAccuracy: true,
       timeout: 20000,
       maximumAge: 0,
     });
-  } else {
-    // Fallback for no geolocation
-    fail();
   }
 }
 
-// Grabs the location from the user and calls showPosition
+// Takes user geolocation and maps it using MapTiler
 function mapLocation(lat, long) {
-  // If unable to get location then set hard coded lat and long
-  if ((!lat && !long) || (lat === undefined && long === undefined)) {
-    coordsArray = [40.689253199999996, -74.04454817144321];
-  } else {
-    coordsArray = [lat, long];
-  }
+  // Set coordinates to geolocation lat and long
+  coordsArray = [lat, long];
 
   //Creates the map object with the intended coordinates and sets zoom level to 14
   var map = L.map('map').setView(coordsArray, 14);
