@@ -6,10 +6,31 @@ function fail(failObj) {
   console.log(failObj);
 }
 
+function revealGeoInfo(infoObj) {
+  var infoBox = document.getElementById('information');
+  var geoInfo;
+
+  if (infoObj) {
+    for (item in infoObj) {
+      geoInfo += '<p>' + item + ': ' + infoObj[item] + '</p>';
+    }
+  }
+
+  infoBox.innerHTML = geoInfo;
+}
+
 function storeLocation(position) {
   // Store coords in global variables
   lat = position.coords.latitude;
   long = position.coords.longitude;
+  alt = position.coords.altitude;
+
+  // Display the user's geo data stored inside custom object
+  revealGeoInfo({
+    Latitude: lat,
+    Longitue: long,
+    Altitude: alt,
+  });
 
   // Assuming geolocation was successful, map coordinates
   mapLocation(lat, long);
