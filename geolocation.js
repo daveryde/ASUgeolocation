@@ -29,17 +29,14 @@ function mapTiler() {
 // Grabs the location from the user and calls showPosition
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(function(position) {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+      coordsArray = [lat, long];
+    });
   } else {
     alert('Geolocation is not supported by this browser.');
   }
-}
-
-// Sets the lat and long along with coordsArray
-function showPosition(position) {
-  lat = position.coords.latitude;
-  long = position.coords.longitude;
-  coordsArray = [lat, long];
 }
 
 window.addEventListener('load', mapTiler, false);
