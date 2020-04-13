@@ -22,7 +22,7 @@ function storeLocation(position) {
 // Handles geolocation permissions and operations
 function geoTest() {
   // Checks for geolocation fails otherwise get location
-  if (navigator || !navigator.geolocation) {
+  if (!navigator || !navigator.geolocation) {
     fail();
   } else {
     navigator.geolocation.getCurrentPosition(storeLocation, fail, {
